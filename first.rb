@@ -1,3 +1,7 @@
+require_relative "module.rb"
+include Tools
+Tools.sayHello("a")
+
 print "Людовик Беррийский\n"
 print ("Людовик Беррийский\n")
 age = 18
@@ -174,3 +178,49 @@ rescue ZeroDivisionError
 end
 
 puts "Привет"
+
+
+class Car
+    attr_accessor :speed, :model, :color, :wheeles
+    def initialize(speed,model,color)
+        @speed = speed
+        @model = model
+        @color = color
+    end
+    def isSpeedCar
+        if @speed  > 200
+            return true
+        end
+        return false
+    end
+    def sayBipBip
+        puts "Bip Bip"
+    end
+end
+# ruby
+bmw = Car.new(230,"BMW","Black")
+audi = Car.new(250,"Audi","White")
+puts bmw.isSpeedCar
+puts audi.sayBipBip
+# C++ Подобные
+# bmw = new Car()
+
+class Transport
+    attr_accessor :speed, :model, :color, :wheeles
+    def sayBipBip
+        puts "Bip Bip"
+    end
+end
+
+class Moto < Transport
+end
+
+# ruby
+bmw2 = Moto.new()
+audi2 = Moto.new()
+puts bmw2.sayBipBip
+puts audi2.sayBipBip
+# C++ Подобные
+# bmw = new Car()
+
+
