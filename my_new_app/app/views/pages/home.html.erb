@@ -1,0 +1,9 @@
+<h1>Dev#index</h1>
+<p>HTML - app/views/pages/</p>
+<p>javascript - app/javascript/packs/application.js</p>
+<p>css - app/assets/stylesheets/</p>
+<p>маршрутицация - configs/routes.rb надо вот так 'Rails.application.routes.draw do root "pages#home" get "/about", to: "pages#about" end'></p>
+<p>маршрутицация - 'rails generate controller Pages home about' </p>
+<p>оброботка событий - 'config/routes.rb' </p>
+
+<%= link_to "О сайте", about_path %>
