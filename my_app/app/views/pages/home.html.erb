@@ -1,0 +1,14 @@
+<nav class="navbar">
+  <%= link_to "Home", root_path %>
+  <%= link_to "About", about_path %>
+</nav>
+
+<h1>Welcome to the Home Page</h1>
+<p>This is the Home page content.</p>
+
+<%= form_with url: "/data", method: :post do %>
+  <label>Введите текст:</label>
+  <%= text_field_tag :user_input, nil, required: true %>
+  <%= submit_tag "Отправить" %>
+<% end %>
+

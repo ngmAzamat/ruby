@@ -1,0 +1,23 @@
+<h1>Редактировать личность</h1>
+
+<%= form_with model: @figure, local: true do |form| %>
+  <%= form.label :first_name, "Имя" %>
+  <%= form.text_field :first_name %>
+
+  <%= form.label :last_name, "Фамилия" %>
+  <%= form.text_field :last_name %>
+
+  <%= form.label :number, "Цифра" %>
+  <%= form.text_field :number %>
+
+  <%= form.label :birth_year, "Год рождения" %>
+  <%= form.number_field :birth_year %>
+
+  <%= form.label :death_year, "Год смерти" %>
+  <%= form.number_field :death_year %>
+
+  <%= form.label :occupation, "Род деятельности" %>
+  <%= form.text_field :occupation %>
+
+  <%= form.submit "Сохранить изменения" %>
+<% end %>

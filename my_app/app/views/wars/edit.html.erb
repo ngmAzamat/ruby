@@ -1,0 +1,43 @@
+<h1>Редактировать войну</h1>
+
+<%= form_with(model: @war, local: true) do |form| %>
+  <p>
+  <%= form.label :name, "Название" %>
+  <%= form.text_field :name %>
+  </p>
+  <p>
+  <%= form.label :first_belligerents, "Первый Участник" %>
+  <%= form.text_field :first_belligerents %>
+  </p>
+  <p>
+  <%= form.label :second_belligerents, "Второй Участник" %>
+  <%= form.text_field :second_belligerents %>
+  </p>
+
+  <p>
+  <%= form.label :number, "Цифра или Прозвище" %>
+  <%= form.text_field :number %>
+  </p>
+
+  <p>
+  <%= form.label :first_year, "Начало Войны" %>
+  <%= form.number_field :first_year %>
+  </p>
+  
+  <p>
+  <%= form.label :last_year, "Конец Войны" %>
+  <%= form.number_field :last_year %>
+  </p>
+
+  <p>
+  <%= form.label :who_win, "Кто Победил" %>
+  <%= form.text_field :who_win %>
+  </p>
+  <p>
+  <%= form.label :name_of_the_peace_treaty, "Название Мирного Договора" %>
+  <%= form.text_field :name_of_the_peace_treaty %>
+  </p>
+
+  <p>
+    <%= form.submit "Сохранить изменения" %>
+  </p><% end %>

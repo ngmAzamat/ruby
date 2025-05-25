@@ -1,0 +1,16 @@
+<h1>Список войн</h1>
+
+<%= link_to "Добавить новую войну", new_war_path %>
+
+<% @wars.each do |war| %>
+  <div>
+    <strong><%= [war.number, war.name].compact.join(" ") %></strong><br>
+    <p>Первая Сторона: <%= war.first_belligerents %></p>
+    <p>Вторая Сторона: <%= war.second_belligerents %> </p>
+    <p>Время Войны: <%= war.first_year %> – <%= war.last_year %></p>
+    <p>Победила: <%= war.who_win %></p>
+    <p>Название Мирного Договора: <%= war.name_of_the_peace_treaty %></p>
+    <%= link_to "Редактировать", edit_war_path(war) %>
+  </div>
+  <hr>
+<% end %>

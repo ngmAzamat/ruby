@@ -1,0 +1,37 @@
+<h1>Добавить историческую личность</h1>
+
+<%= form_with(model: @figure, local: true) do |form| %>
+  <p>
+    <%= form.label :first_name, "Имя" %><br>
+    <%= form.text_field :first_name %>
+  </p>
+
+  <p>
+    <%= form.label :last_name, "Фамилия" %><br>
+    <%= form.text_field :last_name %>
+  </p>
+
+  <p>
+    <%= form.label :number, "Цифра" %><br>
+    <%= form.number_field :number %>
+  </p>
+
+  <p>
+    <%= form.label :birth_year, "Год рождения" %><br>
+    <%= form.number_field :birth_year %>
+  </p>
+
+  <p>
+    <%= form.label :death_year, "Год смерти" %><br>
+    <%= form.number_field :death_year %>
+  </p>
+
+  <p>
+    <%= form.label :occupation, "Род деятельности" %><br>
+    <%= form.text_field :occupation %>
+  </p>
+
+  <p>
+    <%= form.submit "Сохранить" %>
+  </p>
+<% end %>

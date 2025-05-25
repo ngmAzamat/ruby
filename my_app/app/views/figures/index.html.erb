@@ -1,0 +1,14 @@
+<h1>Список исторических личностей</h1>
+
+<%= link_to "Добавить новую личность", new_figure_path %>
+
+<% @figures.each do |figure| %>
+  <div>
+    <strong><%= [figure.first_name, figure.last_name].compact.join(" ") %></strong><br>
+    <p>Годы жизни: <%= figure.birth_year %> – <%= figure.death_year %></p>
+    <p>Занятие: <%= figure.occupation %></p>
+    <p>Цифра: <%= figure.number %></p>
+    <%= link_to "Редактировать", edit_figure_path(figure) %>
+  </div>
+  <hr>
+<% end %>
