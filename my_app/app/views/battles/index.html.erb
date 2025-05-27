@@ -1,0 +1,16 @@
+<%= render 'shared/nav' %>
+
+<h1>Список битв</h1>
+
+<%= link_to "Добавить новую битву", new_battle_path %>
+
+<% @battles.each do |battle| %>
+  <div>
+    <strong><%= battle.name %> (<%= battle.date %>)</strong><br>
+    <p>Стороны: <%= battle.first_belligerents %> vs <%= battle.second_belligerents %></p>
+    <p>Победитель: <%= battle.who_win %></p>
+    <p>Численность: <%= battle.army_of_first_belligerents %> — <%= battle.army_of_second_belligerents %></p>
+    <%= link_to "Редактировать", edit_battle_path(battle) %>
+  </div>
+  <hr>
+<% end %>

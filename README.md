@@ -773,4 +773,146 @@ end
 куда делся старый знакомый `bin/rails server`? `rails s` и есть сокращение от того! но было ли это раньше еще в 7.1.5.1 или от меня что то скрывали?
 нет получается и раньше было `rails s` но я просто не знал!
 
+### Глава IV:
+
+обновление ruby до 3.4.4:
+
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+rbenv install 3.4.4
+rbenv global 3.4.4
+rbenv rehash
+ruby -v
+
 ### Как удолить git из my app?
+
+пока нету
+
+## Часть VII: Шаблон для country
+
+### ✅ Генерация модели и миграция
+
+```bash
+rails generate model Country name:string first_year:integer last_year:integer army:integer area:integer population:integer
+rails db:migrate
+rails generate controller Countries
+```
+
+---
+
+### ✅ Роуты (`routes.rb`)
+
+```ruby
+resources :countries, only: [:index, :new, :create, :edit, :update]
+```
+
+---
+
+### ✅ Контроллер `countries_controller.rb`
+
+```ruby
+class CountriesController < ApplicationController
+  def index
+    @countries = Country.all
+  end
+
+  def new
+    @country = Country.new
+  end
+
+  def create
+    @country = Country.new(country_params)
+    if @country.save
+      redirect_to countries_path, notice: "Страна добавлена!"
+    else
+      render :new
+    end
+  end
+
+  def edit
+    @country = Country.find(params[:id])
+  end
+
+  def update
+    @country = Country.find(params[:id])
+    if @country.update(country_params)
+      redirect_to countries_path, notice: "Страна обновлена"
+    else
+      render :edit
+    end
+  end
+
+  private
+
+  def country_params
+    params.require(:country).permit(
+    :name,
+    :first_year,
+    :last_year,
+    :army,
+    :area,
+    :population
+    )
+  end
+end
+
+```
+
+---
+
+### ✅ Представления (`app/views/battles/`)
+
+#### `new.html.erb`
+
+```erb
+<h1>Добавить страну</h1>
+
+<%= form_with model: @country, local: true do |form| %>
+  <p><%= form.label :name, "Название" %><br><%= form.text_field :name %></p>
+  <p><%= form.label :army, "Численность армии" %><br><%= form.number_field :army %></p>
+  <p><%= form.label :population, "Численность населения" %><br><%= form.number_field :population %></p>
+  <p><%= form.label :area, "Площадь строны в квадратных километрах" %><br><%= form.number_field :area %></p>
+  <p><%= form.label :first_year, "Год начало существования" %><br><%= form.number_field :first_year %></p>
+  <p><%= form.label :last_year, "Год конца существования" %><br><%= form.number_field :last_year %></p>
+  <%= form.submit "Сохранить изменения" %>
+<% end %>
+```
+
+---
+
+#### `edit.html.erb`
+
+```erb
+<h1>Редактировать страну</h1>
+
+<%= form_with model: @country, local: true do |form| %>
+  <p><%= form.label :name, "Название" %><br><%= form.text_field :name %></p>
+  <p><%= form.label :army, "Численность армии" %><br><%= form.number_field :army %></p>
+  <p><%= form.label :population, "Численность населения" %><br><%= form.number_field :population %></p>
+  <p><%= form.label :area, "Площадь строны в квадратных километрах" %><br><%= form.number_field :area %></p>
+  <p><%= form.label :first_year, "Год начало существования" %><br><%= form.number_field :first_year %></p>
+  <p><%= form.label :last_year, "Год конца существования" %><br><%= form.number_field :last_year %></p>
+  <%= form.submit "Сохранить изменения" %>
+<% end %>
+```
+
+---
+
+#### `index.html.erb`
+
+```erb
+<h1>Список стран</h1>
+
+<%= link_to "Добавить новую страну", new_country_path %>
+
+<% @countries.each do |country| %>
+  <div>
+    <strong><%= country.name %></strong><br>
+    <p>Численность армии: <%= country.army %></p>
+    <p>Численность населения: <%= country.population %></p>
+    <p>Площадь строны в квадратных километрах: <%= country.area %></p>
+    <p>Время сущствования: <%= country.first_year %> — <%= country.last_year %></p>
+    <%= link_to "Редактировать", edit_country_path(country) %>
+  </div>
+  <hr>
+<% end %>
+```

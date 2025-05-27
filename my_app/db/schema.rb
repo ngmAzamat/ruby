@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_24_113440) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_27_100021) do
+  create_table "battles", force: :cascade do |t|
+    t.string "name"
+    t.string "number"
+    t.string "first_belligerents"
+    t.string "second_belligerents"
+    t.date "date"
+    t.string "who_win"
+    t.string "army_of_first_belligerents"
+    t.string "army_of_second_belligerents"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.integer "first_year"
+    t.integer "last_year"
+    t.integer "army"
+    t.integer "area"
+    t.integer "population"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "figures", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"

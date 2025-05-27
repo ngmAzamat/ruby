@@ -14,17 +14,22 @@
  *= require_self
  */
 
-.navbar {
-  background-color: #333;
-  padding: 1rem;
-}
-
-.navbar a {
-  color: white;
-  margin-right: 1rem;
+* {
   text-decoration: none;
 }
 
-.navbar a:hover {
-  text-decoration: underline;
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 30px;
+  background-color: #222;
+}
+
+nav > a {
+  color: white;
+}
+
+nav > a:hover {
+  color: red;
 }

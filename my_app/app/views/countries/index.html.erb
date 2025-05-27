@@ -1,0 +1,17 @@
+<%= render 'shared/nav' %>
+
+<h1>Список стран</h1>
+
+<%= link_to "Добавить новую страну", new_country_path %>
+
+<% @countries.each do |country| %>
+  <div>
+    <strong><%= country.name %></strong><br>
+    <p>Численность армии: <%= country.army %></p>
+    <p>Численность населения: <%= country.population %></p>
+    <p>Площадь строны в квадратных километрах: <%= country.area %></p>
+    <p>Время сущствования: <%= country.first_year %> — <%= country.last_year %></p>
+    <%= link_to "Редактировать", edit_country_path(country) %>
+  </div>
+  <hr>
+<% end %>

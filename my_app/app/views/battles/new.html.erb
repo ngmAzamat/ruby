@@ -1,0 +1,16 @@
+<%= render 'shared/nav' %>
+
+
+<h1>Добавить битву</h1>
+
+<%= form_with(model: @battle, local: true) do |form| %>
+  <p><%= form.label :name, "Название битвы" %><br><%= form.text_field :name %></p>
+  <p><%= form.label :number, "Цифра или прозвище" %><br><%= form.text_field :number %></p>
+  <p><%= form.label :first_belligerents, "Первая сторона" %><br><%= form.text_field :first_belligerents %></p>
+  <p><%= form.label :second_belligerents, "Вторая сторона" %><br><%= form.text_field :second_belligerents %></p>
+  <p><%= form.label :date, "Дата битвы" %><br><%= form.date_field :date %></p>
+  <p><%= form.label :who_win, "Кто победил?" %><br><%= form.text_field :who_win %></p>
+  <p><%= form.label :army_of_first_belligerents, "Численность первой армии" %><br><%= form.text_field :army_of_first_belligerents %></p>
+  <p><%= form.label :army_of_second_belligerents, "Численность второй армии" %><br><%= form.text_field :army_of_second_belligerents %></p>
+  <%= form.submit "Сохранить" %>
+<% end %>
