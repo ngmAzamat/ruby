@@ -1,6 +1,6 @@
-<h1>Добавить историческую личность</h1>
-
+<main>
 <%= form_with(model: @figure, local: true) do |form| %>
+<h1>Добавить историческую личность</h1>
   <p>
     <%= form.label :first_name, "Имя" %><br>
     <%= form.text_field :first_name %>
@@ -35,3 +35,4 @@
     <%= form.submit "Сохранить" %>
   </p>
 <% end %>
+</main>

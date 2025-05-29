@@ -13,17 +13,51 @@
  *= require_tree .
  *= require_self
  */
-
 * {
+  outline: none;
   text-decoration: none;
+  font-family: sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+html,
+body {
+  min-width: 100%;
+  min-height: 100vh;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+main {
+  min-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin: 0;
   padding: 30px;
   background-color: #222;
+}
+
+a {
+  color: rgb(0, 4, 230);
+}
+
+a:hover {
+  color: rgb(14, 0, 139);
 }
 
 nav > a {
@@ -32,4 +66,32 @@ nav > a {
 
 nav > a:hover {
   color: red;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 50px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid black;
+  color: black;
+  width: 100%;
+}
+
+input:hover {
+  border: 1px solid blue;
+}
+
+input[type="submit"] {
+  background-color: red;
+  color: white;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 3px;
 }

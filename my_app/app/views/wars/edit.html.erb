@@ -1,6 +1,6 @@
-<h1>Редактировать войну</h1>
-
+<main>
 <%= form_with(model: @war, local: true) do |form| %>
+<h1>Редактировать войну</h1>
   <p>
   <%= form.label :name, "Название" %>
   <%= form.text_field :name %>
@@ -41,3 +41,4 @@
   <p>
     <%= form.submit "Сохранить изменения" %>
   </p><% end %>
+</main>

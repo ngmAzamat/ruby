@@ -1,6 +1,6 @@
-<h1>Добавить страну</h1>
-
+<main>
 <%= form_with model: @country, local: true do |form| %>
+<h1>Добавить страну</h1>
   <p><%= form.label :name, "Название" %><br><%= form.text_field :name %></p>
   <p><%= form.label :army, "Численность армии" %><br><%= form.number_field :army %></p>
   <p><%= form.label :population, "Численность населения" %><br><%= form.number_field :population %></p>
@@ -9,3 +9,4 @@
   <p><%= form.label :last_year, "Год конца существования" %><br><%= form.number_field :last_year %></p>
   <%= form.submit "Сохранить изменения" %>
 <% end %>
+</main>

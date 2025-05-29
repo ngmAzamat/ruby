@@ -1,6 +1,6 @@
-<h1>Редактировать личность</h1>
-
+<main>
 <%= form_with model: @figure, local: true do |form| %>
+<h1>Редактировать личность</h1>
   <%= form.label :first_name, "Имя" %>
   <%= form.text_field :first_name %>
 
@@ -21,3 +21,4 @@
 
   <%= form.submit "Сохранить изменения" %>
 <% end %>
+</main>

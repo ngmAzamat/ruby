@@ -10,6 +10,18 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <% if current_user %>
+        Привет, <%= current_user.email %> |
+        <%= button_to "Выйти", logout_path, method: :delete, form: { style: "display: inline;" } %>
+      <% else %>
+        <%= link_to "Вход", sign_in_path %> |
+        <%= link_to "Регистрация", sign_up_path %>
+      <% end %>
+    </header>
+
+    <footer>
+      <%= yield %>
+    </footer>
   </body>
 </html>

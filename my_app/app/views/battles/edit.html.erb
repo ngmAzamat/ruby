@@ -1,6 +1,6 @@
-<h1>Редактировать битву</h1>
-
+<main>
 <%= form_with model: @battle, local: true do |form| %>
+<h1>Редактировать битву</h1>
   <p><%= form.label :name, "Название битвы" %><br><%= form.text_field :name %></p>
   <p><%= form.label :number, "Цифра или прозвище" %><br><%= form.text_field :number %></p>
   <p><%= form.label :first_belligerents, "Первая сторона" %><br><%= form.text_field :first_belligerents %></p>
@@ -11,3 +11,4 @@
   <p><%= form.label :army_of_second_belligerents, "Численность второй армии" %><br><%= form.text_field :army_of_second_belligerents %></p>
   <%= form.submit "Сохранить изменения" %>
 <% end %>
+</main>

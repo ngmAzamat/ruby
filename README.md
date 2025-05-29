@@ -916,3 +916,200 @@ end
   <hr>
 <% end %>
 ```
+
+### to do list
+
+1. events
+2. css
+3. аутентификация
+4. приклиплять файлы к событиям и рисунки
+5. куки
+
+## Часть VII: Аутентификация
+
+### Вариант I: device
+
+1. bundle add devise
+2. bundle install
+3. rails generate devise:install
+4. `config/environments/development.rb`: добавим `config.action_mailer.perform_caching = false; config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }`
+
+### Вариант II: встроенная аутентификация
+
+#### Глава I: Создание
+
+1. `rails generate authentication User`
+2. `rails db:migrate`
+3. `rm db/migrate/20250529122225_create_users.rb`
+
+а есле уже существует user? то к счастью а может и не к счасьтью он не перезаписывает user, он добавляет нужные поля. что дальше?
+
+1. Модель user:
+
+```ruby
+class User < ApplicationRecord
+  has_secure_password
+
+  validates :email, presence: true, uniqueness: true
+end
+```
+
+2. `rails generate migration AddPasswordDigestToUsers password_digest:string`
+3. `rails db:migrate`
+4. `rails generate controller Registrations`
+5. `mkdir -p app/views/registrations`
+6. `touch app/views/registrations/new.html.erb`
+
+#### Глава II: Много Букв
+
+##### Проверка Маршрутов в config/routes.rb:
+
+```ruby
+get "sign_up", to: "registrations#new"
+post "sign_up", to: "registrations#create"
+get "sign_in", to: "sessions#new"
+post "sign_in", to: "sessions#create"
+delete "logout", to: "sessions#destroy"
+```
+
+#### Контроллер app/controllers/registrations_controller.rb:
+
+```ruby
+class RegistrationsController < ApplicationController
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to root_path, notice: "Регистрация успешна!"
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+end
+```
+
+#### Контроллер app/controllers/sessions_controller.rb:
+
+```ruby
+class SessionsController < ApplicationController
+  def new
+  end
+
+  def create
+    @user = User.find_by(email: params[:email])
+
+    if @user&.authenticate(params[:password])
+      session[:user_id] = @user.id
+      redirect_to root_path, notice: "Вы вошли!"
+    else
+      flash.now[:alert] = "Неверный email или пароль"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_path, notice: "Вы вышли!"
+  end
+end
+```
+
+#### Вьюха app/views/registrations/new.html.erb:
+
+```erb
+<h1>Регистрация</h1>
+
+<%= form_with model: @user, url: sign_up_path do |f| %>
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.submit "Зарегистрироваться" %>
+<% end %>
+```
+
+#### Вьюха app/views/sessions/new.html.erb:
+
+```erb
+<h1>Вход</h1>
+
+<%= form_with url: sign_in_path do |f| %>
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <%= f.submit "Войти" %>
+<% end %>
+```
+
+#### Контроллер ApplicationController:
+
+```ruby
+class ApplicationController < ActionController::Base
+  helper_method :current_user
+
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  end
+end
+```
+
+#### Вьюха app/views/layouts/application.html.erb:
+
+```erb
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MyApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  </head>
+
+  <body>
+    <header>
+      <% if current_user %>
+        Привет, <%= current_user.email %> |
+        <%= button_to "Выйти", logout_path, method: :delete, form: { style: "display: inline;" } %>
+      <% else %>
+        <%= link_to "Вход", sign_in_path %> |
+        <%= link_to "Регистрация", sign_up_path %>
+      <% end %>
+    </header>
+
+    <footer>
+      <%= yield %>
+    </footer>
+  </body>
+</html>
+```
