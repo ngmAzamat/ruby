@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>MyApp</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -13,7 +14,9 @@
     <header>
       <% if current_user %>
         Привет, <%= current_user.email %> |
-        <%= button_to "Выйти", logout_path, method: :delete, form: { style: "display: inline;" } %>
+       <%= form_with url: logout_path, method: :delete, class: "no-form" do %>
+         <button class="no-form-a" type="submit">Выйти</button>
+        <% end %>
       <% else %>
         <%= link_to "Вход", sign_in_path %> |
         <%= link_to "Регистрация", sign_up_path %>

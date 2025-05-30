@@ -925,7 +925,7 @@ end
 4. приклиплять файлы к событиям и рисунки
 5. куки
 
-## Часть VII: Аутентификация
+## Часть VIII: Аутентификация
 
 ### Вариант I: device
 
@@ -1112,4 +1112,270 @@ end
     </footer>
   </body>
 </html>
+```
+
+#### далее:
+
+1. `rails generate migration RenameEmailAddressToEmailInUsers`
+2. В сгенерированном файле db/migrate/...rename_email_address_to_email_in_users.rb напиши:
+
+```ruby
+class RenameEmailAddressToEmailInUsers < ActiveRecord::Migration[7.1]
+  def change
+    rename_column :users, :email_address, :email
+  end
+end
+```
+
+3. `rails db:migrate`
+4. `rails generate migration AddEmailToUsers email:string`
+5. `rails db:migrate`
+6. `rm db/migrate/20250530052155_rename_email_address_to_email_in_users.rb`
+7. `rails db:migrate`
+8. `rails console`
+9. `User.column_names`
+
+#### config/routes.rb
+
+```ruby
+Rails.application.routes.draw do
+  resource :session
+  resources :passwords, param: :token
+  root "home#index"
+  resources :users, only: [:index, :new, :create, :edit, :update]
+  resources :figures, only: [:index, :new, :create, :edit, :update]
+  resources :battles, only: [:index, :new, :create, :edit, :update]
+  resources :countries, only: [:index, :new, :create, :edit, :update]
+  resources :wars
+  get "/about", to: "pages#about"
+  get "/abouts", to: "pages#abouts"
+  get "/data", to: "pages#data"
+  post "/data", to: "pages#data"
+  get "/courses", to: "pages#courses"
+  get "sign_up", to: "registrations#new"
+  post "sign_up", to: "registrations#create"
+  get "sign_in", to: "sessions#new"
+  post "sign_in", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
+end
+```
+
+#### app/views/registrations/new.html.erb
+
+```erb
+<h1>Регистрация</h1>
+
+<% if @user.errors.any? %>
+  <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @user, url: sign_up_path, local: true do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.submit "Зарегистрироваться" %>
+<% end %>
+
+```
+
+#### app/views/layouts/application.html.erb
+
+```erb
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MyApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  </head>
+
+  <body>
+    <header>
+      <% if current_user %>
+        Привет, <%= current_user.email %> |
+       <%= form_with url: logout_path, method: :delete, class: "no-form" do %>
+         <button class="no-form-a" type="submit">Выйти</button>
+        <% end %>
+      <% else %>
+        <%= link_to "Вход", sign_in_path %> |
+        <%= link_to "Регистрация", sign_up_path %>
+      <% end %>
+    </header>
+
+    <footer>
+      <%= yield %>
+    </footer>
+  </body>
+</html>
+```
+
+#### registration_controller.rb
+
+```ruby
+class RegistrationsController < ApplicationController
+  def new
+    @user = User.new
+  end
+
+def create
+  @user = User.new(user_params)
+
+  if @user.save
+    session[:user_id] = @user.id
+    redirect_to root_path, notice: "Регистрация успешна!"
+  else
+    render :new, status: :unprocessable_entity # ВАЖНО: render, а не redirect
+  end
+end
+
+
+  private
+
+def user_params
+  params.require(:user).permit(:name, :email, :password, :password_confirmation)
+end
+end
+end
+```
+
+#### app/assets/stylesheets/application.css
+
+```css
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+* {
+  outline: none;
+  text-decoration: none;
+  font-family: sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+html,
+body {
+  min-width: 100%;
+  min-height: 100vh;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+main {
+  min-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0;
+  padding: 30px;
+  background-color: #222;
+}
+
+a {
+  color: rgb(0, 4, 230);
+}
+
+a:hover {
+  color: rgb(14, 0, 139);
+}
+
+nav > a {
+  color: white;
+}
+
+nav > a:hover {
+  color: red;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 50px;
+}
+
+.no-form {
+  display: inline;
+  border-radius: 0px;
+  border: none;
+  padding: 0px;
+}
+
+.no-form-a {
+  color: rgb(0, 4, 230);
+}
+
+.no-form-a:hover {
+  color: rgb(14, 0, 139);
+}
+
+input {
+  padding: 10px;
+  border: 1px solid black;
+  color: black;
+  width: 100%;
+}
+
+input:hover {
+  border: 1px solid blue;
+}
+
+input[type="submit"] {
+  background-color: rgb(0, 4, 230);
+  color: white;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
 ```
