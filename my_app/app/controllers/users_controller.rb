@@ -2,6 +2,10 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
   end
   
   def edit

@@ -917,14 +917,6 @@ end
 <% end %>
 ```
 
-### to do list
-
-1. events
-2. css
-3. аутентификация
-4. приклиплять файлы к событиям и рисунки
-5. куки
-
 ## Часть VIII: Аутентификация
 
 ### Вариант I: device
@@ -1671,21 +1663,76 @@ cookies.encrypted[:auth_token] = {
 }
 ```
 
-## Часть XI: Проэкт "Темы"
+## Часть X: Проэкт "Темы"
 
 куки изпольщуются для аутентификации, в данный момент это не важно ибо аутентификация встроенная в rails 8.0.2.
 но также появилось идея со светлой и темной темой.
 
 ### Глава I: как сделать
 
-будет кук, значение 0 = светлая тема, значение 1 = темная тема. будет переключатель(две кнопки).
-если нажать на кнопку темная тема то кук это запомнит, а класс будет не white, а black.
+будет кук, значение light = светлая тема, значение dark = темная тема. будет переключатель(две кнопки).
+если нажать на кнопку темная тема то кук это запомнит, а класс будет не light, а dark.
 
-```css
-.black {
-  background-color: black;
-}
-.white {
-  background-color: white;
-}
+Проблемы: я знал как сделать это в js, ибо там можно ментяьь классы HTML через js, но не знаю как делать через ruby. chatGPT сказал так:
+
+### Глава II: Реализация
+
+#### Контроллер app/controllers/application_controller.rb
+
+```ruby
+class ApplicationController < ActionController::Base
+  helper_method :current_user
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  end
+  before_action :set_theme
+  private
+  def set_theme
+    @theme = cookies[:theme] || "light"  # по умолчанию "light"
+  end
+end
 ```
+
+#### Вьюха application.html.erb
+
+```erb
+<%= form_with url: set_theme_path(theme: "light"), method: :post, class: "no-form" do %>
+  <button type="submit" class="light-button no-form-a">Светлая тема</button>
+<% end %>
+
+<%= form_with url: set_theme_path(theme: "dark"), method: :post, class: "no-form" do %>
+  <button type="submit" class="dark-button no-form-a">Тёмная тема</button>
+<% end %>
+```
+
+#### Роуты routes.rb
+
+```ruby
+post 'set_theme', to: 'themes#set'
+```
+
+#### Контроллер app/controllers/themes_controller.rb
+
+генерируем контроллер: `rails generate controller Themes`
+
+```ruby
+class ThemesController < ApplicationController
+  def set
+    cookies[:theme] = params[:theme]
+    redirect_back fallback_location: root_path
+  end
+end
+```
+
+#### css app/assets/stylesheets/application.css
+
+### Глава III: что я узнал от проэкта
+
+1. оказывается можно кукам задавать базывае значения `@переменная = cookies[:переменная] || "значение"`
+2. можно регулировать через руби и куки `классы для erb`
+
+## Часть XI: РАБОТАЮ БЕЗ CHATGPT
+
+это довольно странно, но как минимум в css я разбираюсь.
+
+### Глава I: css, navbar, редирект

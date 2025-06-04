@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   root "users#index"
+  post 'set_theme', to: 'themes#set'
   resources :users, only: [:index, :new, :create, :edit, :update]
   resources :figures, only: [:index, :new, :create, :edit, :update]
   resources :battles, only: [:index, :new, :create, :edit, :update]

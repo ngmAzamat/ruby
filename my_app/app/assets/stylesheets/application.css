@@ -43,29 +43,12 @@ main {
   align-items: center;
 }
 
-nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 0;
-  padding: 30px;
-  background-color: #222;
-}
-
 a {
   color: rgb(0, 4, 230);
 }
 
 a:hover {
   color: rgb(14, 0, 139);
-}
-
-nav > a {
-  color: white;
-}
-
-nav > a:hover {
-  color: red;
 }
 
 form {
@@ -75,13 +58,6 @@ form {
   border-radius: 10px;
   border: 1px solid black;
   padding: 50px;
-}
-
-.no-form {
-  display: inline;
-  border-radius: 0px;
-  border: none;
-  padding: 0px;
 }
 
 .no-form-a {
@@ -109,4 +85,56 @@ input[type="submit"] {
   padding: 15px;
   border: 1px solid black;
   border-radius: 3px;
+}
+.light {
+  background-color: #eee;
+  color: #222;
+}
+.dark {
+  background-color: #222;
+  color: #eee;
+}
+
+.no-form {
+  display: block;
+  border-radius: 0px;
+  border: none;
+  padding: 0px;
+}
+
+.no-form-b {
+  display: block;
+  border-radius: 0px;
+  border: none;
+  color: white;
+  padding: 0px;
+  background-color: transparent;
+}
+.button-b {
+  background-color: transparent;
+  color: white;
+  padding: 0px;
+  border: none;
+  border-radius: 0px;
+}
+
+.button-b:hover {
+  color: red;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0;
+  padding: 30px;
+  background-color: black;
+}
+nav > * {
+  color: white;
+  cursor: default;
+}
+
+nav > *:hover {
+  color: red;
 }
