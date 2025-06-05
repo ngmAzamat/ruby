@@ -1,6 +1,10 @@
 class CountriesController < ApplicationController
   def index
     @countries = Country.all
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
   end
 
   def new

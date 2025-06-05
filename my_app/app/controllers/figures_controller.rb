@@ -1,6 +1,10 @@
 class FiguresController < ApplicationController
   def index
     @figures = Figure.all
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
   end
 
   def new

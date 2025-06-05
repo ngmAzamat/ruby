@@ -1,6 +1,10 @@
 class BattlesController < ApplicationController
   def index
     @battles = Battle.all
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
   end
 
   def new

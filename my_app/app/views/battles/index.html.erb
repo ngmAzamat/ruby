@@ -1,9 +1,7 @@
 <%= render 'shared/nav' %>
-
+<div class="main-div">
 <h1>Список битв</h1>
-
 <%= link_to "Добавить новую битву", new_battle_path %>
-
 <% @battles.each do |battle| %>
   <div>
     <strong><%= battle.name %> (<%= battle.date %>)</strong><br>
@@ -14,3 +12,4 @@
   </div>
   <hr>
 <% end %>
+</div>

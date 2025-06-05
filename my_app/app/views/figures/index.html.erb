@@ -1,10 +1,8 @@
 <%= render 'shared/nav' %>
 
-
+<div class="main-div">
 <h1>Список исторических личностей</h1>
-
 <%= link_to "Добавить новую личность", new_figure_path %>
-
 <% @figures.each do |figure| %>
   <div>
     <strong><%= [figure.first_name, figure.last_name].compact.join(" ") %></strong><br>
@@ -15,3 +13,4 @@
   </div>
   <hr>
 <% end %>
+</div>

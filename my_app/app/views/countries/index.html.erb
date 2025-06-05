@@ -1,9 +1,8 @@
 <%= render 'shared/nav' %>
 
+<div class="main-div">
 <h1>Список стран</h1>
-
 <%= link_to "Добавить новую страну", new_country_path %>
-
 <% @countries.each do |country| %>
   <div>
     <strong><%= country.name %></strong><br>
@@ -15,3 +14,4 @@
   </div>
   <hr>
 <% end %>
+</div>
