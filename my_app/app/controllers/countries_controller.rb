@@ -9,9 +9,17 @@ class CountriesController < ApplicationController
 
   def new
     @country = Country.new
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
   end
 
   def create
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @country = Country.new(country_params)
     if @country.save
       redirect_to countries_path, notice: "Страна добавлена!"
@@ -21,10 +29,18 @@ class CountriesController < ApplicationController
   end
 
   def edit
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @country = Country.find(params[:id])
   end
 
   def update
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @country = Country.find(params[:id])
     if @country.update(country_params)
       redirect_to countries_path, notice: "Страна обновлена"

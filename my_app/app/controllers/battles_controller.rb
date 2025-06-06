@@ -8,10 +8,18 @@ class BattlesController < ApplicationController
   end
 
   def new
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @battle = Battle.new
   end
 
   def create
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @battle = Battle.new(battle_params)
     if @battle.save
       redirect_to battles_path, notice: "Битва добавлена!"
@@ -21,10 +29,18 @@ class BattlesController < ApplicationController
   end
 
   def edit
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @battle = Battle.find(params[:id])
   end
 
   def update
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @battle = Battle.find(params[:id])
     if @battle.update(battle_params)
       redirect_to battles_path, notice: "Битва обновлена"

@@ -3,15 +3,28 @@
 <div class="main-div">
 <h1>Список стран</h1>
 <%= link_to "Добавить новую страну", new_country_path %>
+<table border="1" cellpadding="5" cellspacing="0">
+<thead>
+<tr>
+<th>Название</th>
+<th>Численность армии</th>
+<th>Численность населения</th>
+<th>Площадь строны в квадратных километрах</th>
+<th>Время сущствования</th>
+<th>Действия</th>
+</tr>
+</thead>
+<tbody>
 <% @countries.each do |country| %>
-  <div>
-    <strong><%= country.name %></strong><br>
-    <p>Численность армии: <%= country.army %></p>
-    <p>Численность населения: <%= country.population %></p>
-    <p>Площадь строны в квадратных километрах: <%= country.area %></p>
-    <p>Время сущствования: <%= country.first_year %> — <%= country.last_year %></p>
-    <%= link_to "Редактировать", edit_country_path(country) %>
-  </div>
-  <hr>
+  <tr>
+    <td><strong><%= country.name %></strong></td>
+    <td><%= country.army %></td>
+    <td><%= country.population %></td>
+    <td><%= country.area %></td>
+    <td><%= country.first_year %> — <%= country.last_year %></td>
+    <td><%= link_to "Редактировать", edit_country_path(country) %></td>
+  </tr>
 <% end %>
+</tbody>
+</table>
 </div>

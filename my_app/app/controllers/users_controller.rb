@@ -11,9 +11,17 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     @figures = Figure.all
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
   end
   
   def update
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @user = User.find(params[:id])
     @figures = Figure.all
   
@@ -26,11 +34,19 @@ class UsersController < ApplicationController
 
   
   def new
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @user = User.new
     @figures = Figure.all
   end
 
   def create
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @user = User.new(user_params)
     @figures = Figure.all # иначе рендер new выдаст ошибку
 

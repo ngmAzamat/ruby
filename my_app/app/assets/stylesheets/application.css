@@ -19,6 +19,7 @@
   font-family: sans-serif;
   margin: 0px;
   padding: 0px;
+  box-sizing: border-box;
 }
 
 html,
@@ -43,8 +44,9 @@ div {
 }
 
 main {
-  min-width: 100%;
-  min-height: 100vh;
+  min-width: 100vw;
+  min-height: calc(100vh - 83px);
+  height: calc(100vh - 83px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,8 +82,8 @@ input {
   padding: 10px;
   border: 1px solid black;
   color: black;
+  min-width: 100%;
   width: 100%;
-  max-width: 100%;
 }
 
 input:hover {
@@ -150,4 +152,23 @@ nav > *:hover {
   min-width: 0px;
   border: none;
   padding: 0px;
+}
+
+table {
+  padding: 20px;
+}
+thead {
+  padding: 20px;
+}
+tbody {
+  padding: 20px;
+}
+tr {
+  padding: 20px;
+}
+th {
+  padding: 20px;
+}
+td {
+  padding: 20px;
 }

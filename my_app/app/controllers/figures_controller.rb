@@ -1,5 +1,6 @@
 class FiguresController < ApplicationController
   def index
+    
     @figures = Figure.all
     if current_user
     else
@@ -9,9 +10,17 @@ class FiguresController < ApplicationController
 
   def new
     @figure = Figure.new
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
   end
 
   def create
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @figure = Figure.new(figure_params)
     if @figure.save
       redirect_to figures_path, notice: "Добавлено!"
@@ -21,10 +30,18 @@ class FiguresController < ApplicationController
   end
 
   def edit
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @figure = Figure.find(params[:id])
   end
 
   def update
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @figure = Figure.find(params[:id])
     if @figure.update(figure_params)
       redirect_to figures_path, notice: "Личность обновлена"

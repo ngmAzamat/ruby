@@ -13,9 +13,17 @@ class WarsController < ApplicationController
 
   def new
     @war = War.new
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
   end
 
   def create
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @war = War.new(war_params)
     if @war.save
       redirect_to wars_path, notice: "Война создана"
@@ -25,10 +33,18 @@ class WarsController < ApplicationController
   end
 
   def edit
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @war = War.find(params[:id])
   end
 
   def update
+    if current_user
+    else
+      redirect_to '/sign_in'
+    end
     @war = War.find(params[:id])
     if @war.update(war_params)
       redirect_to wars_path, notice: "Война обновлена"

@@ -1,16 +1,30 @@
 <%= render 'shared/nav' %>
-
 <div class="main-div">
 <h1>Список исторических личностей</h1>
 <%= link_to "Добавить новую личность", new_figure_path %>
-<% @figures.each do |figure| %>
-  <div>
-    <strong><%= [figure.first_name, figure.last_name].compact.join(" ") %></strong><br>
-    <p>Годы жизни: <%= figure.birth_year %> – <%= figure.death_year %></p>
-    <p>Занятие: <%= figure.occupation %></p>
-    <p>Цифра: <%= figure.number %></p>
-    <%= link_to "Редактировать", edit_figure_path(figure) %>
-  </div>
-  <hr>
-<% end %>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Имя</th>
+      <th>Годы жизни</th>
+      <th>Занятие</th>
+      <th>Цифра</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @figures.each do |figure| %>
+      <tr>
+        <td><strong><%= [figure.first_name, figure.last_name].compact.join(" ") %></strong></td>
+        <td><%= figure.birth_year %> – <%= figure.death_year %></td>
+        <td><%= figure.occupation %></td>
+        <td><%= figure.number %></td>
+        <td>
+          <%= link_to "Редактировать", edit_figure_path(figure) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 </div>

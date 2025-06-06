@@ -2,14 +2,26 @@
 <div class="main-div">
 <h1>Список битв</h1>
 <%= link_to "Добавить новую битву", new_battle_path %>
+<table border="1" cellpadding="5" cellspacing="0">
+<thead>
+<tr>
+<th>Название</th>
+<th>Стороны</th>
+<th>Победитель</th>
+<th>Численность</th>
+<th>Действия</th>
+</tr>
+<thead>
+<tbody>
 <% @battles.each do |battle| %>
-  <div>
-    <strong><%= battle.name %> (<%= battle.date %>)</strong><br>
-    <p>Стороны: <%= battle.first_belligerents %> vs <%= battle.second_belligerents %></p>
-    <p>Победитель: <%= battle.who_win %></p>
-    <p>Численность: <%= battle.army_of_first_belligerents %> — <%= battle.army_of_second_belligerents %></p>
-    <%= link_to "Редактировать", edit_battle_path(battle) %>
-  </div>
-  <hr>
+<tr>
+    <td><strong><%= battle.name %> (<%= battle.date %>)</strong></td>
+    <td><%= battle.first_belligerents %> vs <%= battle.second_belligerents %></td>
+    <td><%= battle.who_win %></td>
+    <td><%= battle.army_of_first_belligerents %> — <%= battle.army_of_second_belligerents %></td>
+    <td><%= link_to "Редактировать", edit_battle_path(battle) %></td>
+</tr>
 <% end %>
+</tbody>
+</table>
 </div>
