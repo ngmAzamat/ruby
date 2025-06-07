@@ -1,3 +1,9 @@
+### Actions
+
+- single column
+- use icons
+- fix navbar
+
 ### Login
 
 - сделанно: убрать navbar

@@ -4,16 +4,27 @@
 <%= link_to "Wars", wars_path %>
 <%= link_to "Figures", figures_path %>
 <%= link_to "Battles", battles_path %>
-<%= form_with url: set_theme_path(), method: :post, class: "no-form-b" do %>
-<button type="submit" class="button-b"><i class="bx bx-night-light"></i></button>
-<% end %>
+
 <% if current_user %>
-<%= form_with url: logout_path, method: :delete, class: "no-form-b" do %>
-<button class="button-b" type="submit">Выйти</button>
+    <%= form_with url: logout_path, method: :delete, class: "no-form-b" do %>
+    <button class="button-b" type="submit">Выйти</button>
 <% end %>
+
 <% else %>
-<%= link_to "Вход", sign_in_path %> |
-<%= link_to "Регистрация", sign_up_path %>
+    <%= link_to "Вход", sign_in_path %> |
+    <%= link_to "Регистрация", sign_up_path %>
 <% end %>
-<% if current_user %><a><%= "Profile" %></a><% end %>
+
+
+<% if current_user %>
+    <a><%= "Profile" %></a>
+<% end %>
+
+<%= form_with url: set_theme_path(), method: :post, class: "no-form-b" do %>
+    <button type="submit" class="button-b"><i class="bx bx-night-light"></i></button>
+<% end %>
+
+
+
+
 </nav>
