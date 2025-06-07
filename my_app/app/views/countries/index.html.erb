@@ -3,7 +3,7 @@
 <div class="main-div">
 <h1>Список стран</h1>
 <%= link_to "Добавить новую страну", new_country_path %>
-<table border="1" cellpadding="5" cellspacing="0">
+<table>
 <thead>
 <tr>
 <th>Название</th>
@@ -11,7 +11,8 @@
 <th>Численность населения</th>
 <th>Площадь строны в квадратных километрах</th>
 <th>Время сущствования</th>
-<th>Действия</th>
+<th>Редактирование</th>
+<th>Удаление</th>
 </tr>
 </thead>
 <tbody>
@@ -23,6 +24,7 @@
     <td><%= country.area %></td>
     <td><%= country.first_year %> — <%= country.last_year %></td>
     <td><%= link_to "Редактировать", edit_country_path(country) %></td>
+    <td></td>
   </tr>
 <% end %>
 </tbody>

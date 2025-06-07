@@ -1,18 +1,24 @@
 <%= render 'shared/nav' %>
 
-
-<h1>Редактировать пользователя</h1>
-
-<%= form_with(model: @user, local: true) do |form| %>
+<main>
+<%= form_with model: @user, local: true do |form| %>
+  <div>
+    <h1>Редактировать пользователя</h1>
+  </div>
   <div>
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
-
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
   <div>
     <%= form.label :password %>
     <%= form.password_field :password %>
   </div>
-
-  <%= form.submit "Обновить" %>
+  <div>
+    <%= form.submit "Обновить" %>
+  </div>
 <% end %>
+</main>

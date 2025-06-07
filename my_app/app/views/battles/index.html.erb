@@ -2,16 +2,17 @@
 <div class="main-div">
 <h1>Список битв</h1>
 <%= link_to "Добавить новую битву", new_battle_path %>
-<table border="1" cellpadding="5" cellspacing="0">
+<table>
 <thead>
 <tr>
 <th>Название</th>
 <th>Стороны</th>
 <th>Победитель</th>
 <th>Численность</th>
-<th>Действия</th>
+<th>Редактирование</th>
+<th>Удаление</th>
 </tr>
-<thead>
+</thead>
 <tbody>
 <% @battles.each do |battle| %>
 <tr>
@@ -20,6 +21,7 @@
     <td><%= battle.who_win %></td>
     <td><%= battle.army_of_first_belligerents %> — <%= battle.army_of_second_belligerents %></td>
     <td><%= link_to "Редактировать", edit_battle_path(battle) %></td>
+    <td></td>
 </tr>
 <% end %>
 </tbody>

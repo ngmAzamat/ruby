@@ -4,7 +4,7 @@
 <h1>Список войн</h1>
 
 <%= link_to "Добавить новую войну", new_war_path %>
-<table border="1" cellpadding="5" cellspacing="0">
+<table>
 <thead>
 <tr>
 <th>Название</th>
@@ -13,7 +13,8 @@
 <th>Время Войны</th>
 <th>Победила</th>
 <th>Название Мирного Договора</th>
-<th>Действия</th>
+<th>Редактирование</th>
+<th>Удаление</th>
 </tr>
 </thead>
 <tbody>
@@ -26,6 +27,7 @@
     <td><%= war.who_win %></td>
     <td><%= war.name_of_the_peace_treaty %></td>
     <td><%= link_to "Редактировать", edit_war_path(war) %></td>
+    <td></td>
   </tr>
 <% end %>
 </tbody>

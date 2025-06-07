@@ -9,12 +9,11 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
-    @figures = Figure.all
     if current_user
     else
       redirect_to '/sign_in'
     end
+    @user = User.find(params[:id])
   end
   
   def update
@@ -23,8 +22,6 @@ class UsersController < ApplicationController
       redirect_to '/sign_in'
     end
     @user = User.find(params[:id])
-    @figures = Figure.all
-  
     if @user.update(user_params)
       redirect_to root_path, notice: "Пользователь обновлён"
     else
@@ -60,6 +57,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :password)
+    params.require(:user).permit(:name, :password, :email)
   end
 end

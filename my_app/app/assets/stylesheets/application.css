@@ -155,20 +155,10 @@ nav > *:hover {
 }
 
 table {
-  padding: 20px;
+  border-collapse: collapse;
 }
-thead {
-  padding: 20px;
-}
-tbody {
-  padding: 20px;
-}
-tr {
-  padding: 20px;
-}
-th {
-  padding: 20px;
-}
+th,
 td {
   padding: 20px;
+  border: 1px solid black;
 }
