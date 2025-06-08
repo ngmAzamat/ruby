@@ -1,29 +1,19 @@
 class WarsController < ApplicationController
+  before_action :require_login
+
   def show
     @war = War.find(params[:id])
   end
   
   def index
     @wars = War.all
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
   end
 
   def new
     @war = War.new
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
   end
 
   def create
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @war = War.new(war_params)
     if @war.save
       redirect_to wars_path, notice: "Война создана"
@@ -33,10 +23,6 @@ class WarsController < ApplicationController
   end
 
   def edit
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @war = War.find(params[:id])
   end
 
@@ -53,7 +39,19 @@ class WarsController < ApplicationController
     end
   end
 
+  def destroy
+    @war = War.find(params[:id])
+    @war.destroy
+    redirect_to wars_path, notice: 'Война была успешно удалёна.'
+  end
+
   private
+
+  def require_login
+    unless current_user
+      redirect_to '/sign_in'
+    end
+  end
 
   def war_params
     params.require(:war).permit(

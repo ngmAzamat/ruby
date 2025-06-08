@@ -1,26 +1,15 @@
 class UsersController < ApplicationController
+  before_action :require_login
 
   def index
     @users = User.all
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
   end
-  
+
   def edit
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @user = User.find(params[:id])
   end
-  
+
   def update
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to root_path, notice: "Пользователь обновлён"
@@ -29,21 +18,20 @@ class UsersController < ApplicationController
     end
   end
 
-  
+
+
   def new
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @user = User.new
     @figures = Figure.all
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to root_path, notice: 'Пользователь был успешно удалён.'
+  end
+
   def create
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @user = User.new(user_params)
     @figures = Figure.all # иначе рендер new выдаст ошибку
 
@@ -58,5 +46,11 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :password, :email)
+  end
+
+  def require_login
+    unless current_user
+      redirect_to '/sign_in'
+    end
   end
 end

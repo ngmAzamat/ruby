@@ -10,8 +10,7 @@
       <th>Годы жизни</th>
       <th>Занятие</th>
       <th>Цифра</th>
-      <th>Редактирование</th>
-      <th>Удаление</th>
+      <th>Действия</th>
     </tr>
   </thead>
   <tbody>
@@ -22,9 +21,9 @@
         <td><%= figure.occupation %></td>
         <td><%= figure.number %></td>
         <td>
-          <%= link_to "Редактировать", edit_figure_path(figure) %>
+          <%= link_to "Редактировать", edit_figure_path(figure) %> | 
+          <%= link_to "Удалить", figure_path(figure), method: :delete, data: { confirm: "Вы уверены, что хотите удалить #{figure.first_name}?" } %>
         </td>
-        <td></td>
       </tr>
     <% end %>
   </tbody>

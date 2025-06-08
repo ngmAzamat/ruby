@@ -1734,3 +1734,180 @@ end
 ## Часть XI: РАБОТАЮ БЕЗ CHATGPT
 
 это довольно странно, но как минимум в css я разбираюсь. но дольнейшое развитие прожкта делал я сам.
+
+## Часть XII: Удаление
+
+допустим у нас было:
+
+```erb
+<%= render 'shared/nav' %>
+
+<div class="main-div">
+<h1>Список пользователей</h1>
+<table>
+<thead>
+<tr>
+<th>Имя</th>
+<th>Email</th>
+<th>Действия</th>
+<tr>
+</thead>
+<tbody>
+<% @users.each do |user| %>
+<tr>
+  <td><%= user.name %></td>
+  <td><%= user.email %></td>
+  <td><%= link_to "Редактировать", edit_user_path(user) %> | <%= link_to "Удалить", edit_user_path(user) %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+</div>
+```
+
+надо сделать из того это:
+
+```erb
+<%= render 'shared/nav' %>
+
+<div class="main-div">
+<h1>Список пользователей</h1>
+<table>
+<thead>
+<tr>
+<th>Имя</th>
+<th>Email</th>
+<th>Действия</th>
+<tr>
+</thead>
+<tbody>
+<% @users.each do |user| %>
+<tr>
+  <td><%= user.name %></td>
+  <td><%= user.email %></td>
+  <td>
+    <%= link_to "Редактировать", edit_user_path(user) %> |
+    <%= button_to "Удалить", user_path(user), method: :delete, data: { confirm: "Вы уверены, что хотите удалить пользователя #{user.name}?" } %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+</div>
+```
+
+config/routes.rb:
+
+```ruby
+Rails.application.routes.draw do
+  resource :session
+  resources :passwords, param: :token
+  root "users#index"
+  post 'set_theme', to: 'themes#set'
+  get '/users/:id', to: 'users#destroy'
+  resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :figures, only: [:index, :new, :create, :edit, :update]
+  resources :battles, only: [:index, :new, :create, :edit, :update]
+  resources :countries, only: [:index, :new, :create, :edit, :update]
+  resources :wars
+  delete "/logout", to: "sessions#destroy"
+  get "/logout_via_get", to: "sessions#destroy" # <- временный костыль
+  get "/about", to: "pages#about"
+  get "/abouts", to: "pages#abouts"
+  get "/data", to: "pages#data"
+  post "/data", to: "pages#data"
+  get "/courses", to: "pages#courses"
+  get "sign_up", to: "registrations#new"
+  post "sign_up", to: "registrations#create"
+  get "sign_in", to: "sessions#new"
+  post "sign_in", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
+end
+```
+
+Контроллер userscontroller:
+
+```ruby
+class UsersController < ApplicationController
+  before_action :require_login
+
+  def index
+    @users = User.all
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to root_path, notice: "Пользователь обновлён"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+
+
+  def new
+    @user = User.new
+    @figures = Figure.all
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to root_path, notice: 'Пользователь был успешно удалён.'
+  end
+
+  def create
+    @user = User.new(user_params)
+    @figures = Figure.all # иначе рендер new выдаст ошибку
+
+    if @user.save
+      redirect_to root_path, notice: "Пользователь создан"
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :password, :email)
+  end
+
+  def require_login
+    unless current_user
+      redirect_to '/sign_in'
+    end
+  end
+end
+```
+
+#### замечание
+
+вместо того что бы в каждом action писать:
+
+```ruby
+if current_user
+else
+  redirect_to '/sign_in'
+end
+```
+
+можно в начале контроллера писать:
+
+```ruby
+before_action :require_login
+```
+
+а в private:
+
+```ruby
+def require_login
+  unless current_user
+    redirect_to '/sign_in'
+  end
+end
+```

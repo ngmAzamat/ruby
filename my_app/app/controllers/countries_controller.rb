@@ -1,25 +1,15 @@
 class CountriesController < ApplicationController
+  before_action :require_login
+
   def index
     @countries = Country.all
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
   end
 
   def new
     @country = Country.new
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
   end
 
   def create
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @country = Country.new(country_params)
     if @country.save
       redirect_to countries_path, notice: "Страна добавлена!"
@@ -29,18 +19,10 @@ class CountriesController < ApplicationController
   end
 
   def edit
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @country = Country.find(params[:id])
   end
 
   def update
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @country = Country.find(params[:id])
     if @country.update(country_params)
       redirect_to countries_path, notice: "Страна обновлена"
@@ -49,7 +31,19 @@ class CountriesController < ApplicationController
     end
   end
 
+  def destroy
+    @country = Country.find(params[:id])
+    @country.destroy
+    redirect_to countries_path, notice: 'Старана была успешно удалёна.'
+  end
+
   private
+
+  def require_login
+    unless current_user
+      redirect_to '/sign_in'
+    end
+  end
 
   def country_params
     params.require(:country).permit(

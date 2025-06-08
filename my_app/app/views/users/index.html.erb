@@ -7,8 +7,7 @@
 <tr>
 <th>Имя</th>
 <th>Email</th>
-<th>Редактирование</th>
-<th>Удаление</th>
+<th>Действия</th>
 <tr>
 </thead>
 <tbody>
@@ -16,8 +15,10 @@
 <tr>
   <td><%= user.name %></td>
   <td><%= user.email %></td>
-  <td><%= link_to "Редактировать", edit_user_path(user) %></td>
-<td></td>
+  <td>
+    <%= link_to "Редактировать", edit_user_path(user) %> |
+    <%= link_to "Удалить", user_path(user), method: :delete, data: { confirm: "Вы уверены, что хотите удалить пользователя #{user.name}?" } %>
+  </td>
 </tr>
 <% end %>
 </tbody>

@@ -1,4 +1,6 @@
 class FiguresController < ApplicationController
+  before_action :require_login
+
   def index
     
     @figures = Figure.all
@@ -6,6 +8,12 @@ class FiguresController < ApplicationController
     else
       redirect_to '/sign_in'
     end
+  end
+
+  def destroy
+    @figure = Figure.find(params[:id])
+    @figure.destroy
+    redirect_to figures_path, notice: 'Личность была успешно удалёна.'
   end
 
   def new
@@ -51,6 +59,11 @@ class FiguresController < ApplicationController
   end
 
   private
+  def require_login
+    unless current_user
+      redirect_to '/sign_in'
+    end
+  end
 
   def figure_params
     params.require(:figure).permit(:first_name, :last_name, :number, :birth_year, :death_year, :occupation)

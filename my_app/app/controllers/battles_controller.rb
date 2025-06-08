@@ -1,25 +1,15 @@
 class BattlesController < ApplicationController
+  before_action :require_login
+
   def index
     @battles = Battle.all
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
   end
 
   def new
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @battle = Battle.new
   end
 
   def create
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @battle = Battle.new(battle_params)
     if @battle.save
       redirect_to battles_path, notice: "Битва добавлена!"
@@ -28,19 +18,17 @@ class BattlesController < ApplicationController
     end
   end
 
+  def destroy
+    @battle = Battle.find(params[:id])
+    @battle.destroy
+    redirect_to battles_path, notice: 'Битва была успешно удалёна.'
+  end
+
   def edit
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @battle = Battle.find(params[:id])
   end
 
   def update
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @battle = Battle.find(params[:id])
     if @battle.update(battle_params)
       redirect_to battles_path, notice: "Битва обновлена"
@@ -50,6 +38,11 @@ class BattlesController < ApplicationController
   end
 
   private
+  def require_login
+    unless current_user
+      redirect_to '/sign_in'
+    end
+  end
 
   def battle_params
     params.require(:battle).permit(

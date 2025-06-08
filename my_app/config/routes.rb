@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
   root "users#index"
   post 'set_theme', to: 'themes#set'
-  resources :users, only: [:index, :new, :create, :edit, :update]
+  get '/users/:id', to: 'users#destroy'
+  get '/figures/:id', to: 'figures#destroy'
+  get '/battles/:id', to: 'battles#destroy'
+  get '/countries/:id', to: 'countries#destroy'
+  get '/wars/:id', to: 'wars#destroy'
+  resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :figures, only: [:index, :new, :create, :edit, :update]
   resources :battles, only: [:index, :new, :create, :edit, :update]
   resources :countries, only: [:index, :new, :create, :edit, :update]

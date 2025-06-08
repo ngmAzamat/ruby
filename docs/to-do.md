@@ -1,8 +1,8 @@
 ### Actions
 
-- single column
+- сделанно: single column
 - use icons
-- fix navbar
+- сделанно: fix navbar
 
 ### Login
 
