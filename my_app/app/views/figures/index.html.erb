@@ -1,6 +1,6 @@
 <%= render 'shared/nav' %>
 <div class="main-div">
-<h1>Список исторических личностей</h1>
+<h1>Исторические личности</h1>
 <%= link_to "Добавить новую личность", new_figure_path %>
 
 <table>
@@ -21,8 +21,13 @@
         <td><%= figure.occupation %></td>
         <td><%= figure.number %></td>
         <td>
-          <%= link_to "Редактировать", edit_figure_path(figure) %> | 
-          <%= link_to "Удалить", figure_path(figure), method: :delete, data: { confirm: "Вы уверены, что хотите удалить #{figure.first_name}?" } %>
+          <%= link_to edit_figure_path(figure) do %>
+            <i class='bxr bx-edit'></i>
+          <% end %>
+          &nbsp
+          <%= link_to "/figures/#{figure.id}/confirm_destroy" do %>
+            <i class='bxr bx-trash'></i>
+          <% end %>
         </td>
       </tr>
     <% end %>

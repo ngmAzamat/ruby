@@ -18,6 +18,10 @@ class BattlesController < ApplicationController
     end
   end
 
+  def confirm_destroy
+    @battle = Battle.find(params[:id])
+  end
+
   def destroy
     @battle = Battle.find(params[:id])
     @battle.destroy

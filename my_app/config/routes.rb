@@ -3,16 +3,18 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
   root "users#index"
   post 'set_theme', to: 'themes#set'
-  get '/users/:id', to: 'users#destroy'
-  get '/figures/:id', to: 'figures#destroy'
-  get '/battles/:id', to: 'battles#destroy'
-  get '/countries/:id', to: 'countries#destroy'
-  get '/wars/:id', to: 'wars#destroy'
+  get '/users/:id/confirm_destroy', to: 'users#confirm_destroy'
+  get '/figures/:id/confirm_destroy', to: 'figures#confirm_destroy'
+  get '/battles/:id/confirm_destroy', to: 'battles#confirm_destroy'
+  get '/countries/:id/confirm_destroy', to: 'countries#confirm_destroy'
+  get '/wars/:id/confirm_destroy', to: 'wars#confirm_destroy'
+  # get '/events/:id/confirm_destroy', to: 'events#confirm_destroy'
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
-  resources :figures, only: [:index, :new, :create, :edit, :update]
-  resources :battles, only: [:index, :new, :create, :edit, :update]
-  resources :countries, only: [:index, :new, :create, :edit, :update]
-  resources :wars
+  resources :figures, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :battles, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :countries, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :wars, only: [:index, :new, :create, :edit, :update, :destroy]
+  # resources :events, only: [:index, :new, :create, :edit, :update, :destroy]
   delete "/logout", to: "sessions#destroy"
   get "/logout_via_get", to: "sessions#destroy" # <- временный костыль
   get "/about", to: "pages#about" 

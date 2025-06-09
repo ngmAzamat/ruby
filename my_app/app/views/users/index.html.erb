@@ -1,7 +1,7 @@
 <%= render 'shared/nav' %>
 
 <div class="main-div">
-<h1>Список пользователей</h1>
+<h1>Пользователи</h1>
 <table>
 <thead>
 <tr>
@@ -16,8 +16,13 @@
   <td><%= user.name %></td>
   <td><%= user.email %></td>
   <td>
-    <%= link_to "Редактировать", edit_user_path(user) %> |
-    <%= link_to "Удалить", user_path(user), method: :delete, data: { confirm: "Вы уверены, что хотите удалить пользователя #{user.name}?" } %>
+    <%= link_to edit_user_path(user) do %>
+      <i class='bxr bx-edit'></i>
+    <% end %>
+    &nbsp
+    <%= link_to "/users/#{user.id}/confirm_destroy" do %>
+      <i class='bxr bx-trash'></i> 
+    <% end %>
   </td>
 </tr>
 <% end %>

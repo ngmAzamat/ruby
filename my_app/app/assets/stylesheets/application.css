@@ -99,6 +99,15 @@ input[type="submit"] {
   font-size: 1.275em;
 }
 
+input[type="submit"].button-red {
+  background-color: red;
+  color: white;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 3px;
+  font-size: 1.275em;
+}
+
 .light {
   background-color: #eee;
   color: #222;

@@ -1,7 +1,7 @@
 <%= render 'shared/nav' %>
 
 <div class="main-div">
-<h1>Список войн</h1>
+<h1>Войны</h1>
 
 <%= link_to "Добавить новую войну", new_war_path %>
 <table>
@@ -26,8 +26,13 @@
     <td><%= war.who_win %></td>
     <td><%= war.name_of_the_peace_treaty %></td>
     <td>
-    <%= link_to "Редактировать", edit_war_path(war) %> | 
-    <%= link_to "Удалить", war_path(war), method: :delete, data: { confirm: "Вы уверены, что хотите удалить #{war.name}?" } %>
+    <%= link_to edit_war_path(war) do %>
+      <i class='bxr bx-edit'></i>
+    <% end %>
+    &nbsp
+    <%= link_to "/wars/#{war.id}/confirm_destroy" do %>
+      <i class='bxr bx-trash'></i> 
+    <% end %>
     </td>
   </tr>
 <% end %>

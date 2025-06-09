@@ -1,0 +1,14 @@
+<%= render 'shared/nav' %>
+
+<main>
+<%= form_with(model: @country, method: :delete, local: true) do |form| %>
+<h1>Удалить страну</h1>
+  <p><%= form.label :name, "Название" %><br><%= form.text_field :name, readonly: true %></p>
+  <p><%= form.label :army, "Численность армии" %><br><%= form.number_field :army, readonly: true %></p>
+  <p><%= form.label :population, "Численность населения" %><br><%= form.number_field :population, readonly: true %></p>
+  <p><%= form.label :area, "Площадь строны в квадратных километрах" %><br><%= form.number_field :area, readonly: true %></p>
+  <p><%= form.label :first_year, "Год начало существования" %><br><%= form.number_field :first_year, readonly: true %></p>
+  <p><%= form.label :last_year, "Год конца существования" %><br><%= form.number_field :last_year, readonly: true %></p>
+  <%= form.submit "Удалить", data: { confirm: 'Вы уверены?' }, class: "button-red" %>
+<% end %>
+</main>

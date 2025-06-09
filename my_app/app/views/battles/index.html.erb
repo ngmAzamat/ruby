@@ -1,6 +1,6 @@
 <%= render 'shared/nav' %>
 <div class="main-div">
-<h1>Список битв</h1>
+<h1>Битвы</h1>
 <%= link_to "Добавить новую битву", new_battle_path %>
 <table>
 <thead>
@@ -20,8 +20,13 @@
     <td><%= battle.who_win %></td>
     <td><%= battle.army_of_first_belligerents %> — <%= battle.army_of_second_belligerents %></td>
     <td>
-        <%= link_to "Редактировать", edit_battle_path(battle) %> | 
-        <%= link_to "Удалить", battle_path(battle), method: :delete, data: { confirm: "Вы уверены, что хотите удалить #{battle.name}?" } %>
+        <%= link_to edit_battle_path(battle) do %>
+            <i class='bxr bx-edit'></i>
+        <% end %>
+        &nbsp
+        <%= link_to "/battles/#{battle.id}/confirm_destroy" do %>
+            <i class='bxr bx-trash'></i> 
+        <% end %>
     </td>
 </tr>
 <% end %>

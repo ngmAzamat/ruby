@@ -27,10 +27,6 @@ class WarsController < ApplicationController
   end
 
   def update
-    if current_user
-    else
-      redirect_to '/sign_in'
-    end
     @war = War.find(params[:id])
     if @war.update(war_params)
       redirect_to wars_path, notice: "Война обновлена"
@@ -39,11 +35,16 @@ class WarsController < ApplicationController
     end
   end
 
+  def confirm_destroy
+    @war = War.find(params[:id])
+  end
+
   def destroy
     @war = War.find(params[:id])
     @war.destroy
-    redirect_to wars_path, notice: 'Война была успешно удалёна.'
+    redirect_to wars_path, notice: "Война удалена."
   end
+
 
   private
 

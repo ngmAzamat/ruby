@@ -1,0 +1,24 @@
+<%= render 'shared/nav' %>
+
+<main>
+  <%= form_with(model: @user, method: :delete, local: true) do |form| %>
+  <div>
+    <h1>Удалить пользователя</h1>
+  </div>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, readonly: true %>
+  </div>
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email, readonly: true %>
+  </div>
+  <div>
+    <%= form.label :password %>
+    <%= form.password_field :password, readonly: true %>
+  </div>
+  <div>
+      <%= form.submit "Удалить", data: { confirm: 'Вы уверены?' }, class: "button-red" %>
+  </div>
+<% end %>
+</main>

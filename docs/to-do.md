@@ -1,8 +1,9 @@
 ### Actions
 
 - сделанно: single column
-- use icons
+- сделанно: use icons
 - сделанно: fix navbar
+- сделанно: сделать страницу delete где будет красная конпка и readonly
 
 ### Login
 
@@ -12,7 +13,7 @@
 
 ### CSS
 
-- padding для main
+- сделанно: padding для main
 - сделанно: улучшить Список пользователей до таблицы имя email
 
 ### Events

@@ -1,7 +1,7 @@
 <%= render 'shared/nav' %>
 
 <div class="main-div">
-<h1>Список стран</h1>
+<h1>Страны</h1>
 <%= link_to "Добавить новую страну", new_country_path %>
 <table>
 <thead>
@@ -23,8 +23,13 @@
     <td><%= country.area %></td>
     <td><%= country.first_year %> — <%= country.last_year %></td>
     <td>
-      <%= link_to "Редактировать", edit_country_path(country) %> | 
-    <%= link_to "Удалить", country_path(country), method: :delete, data: { confirm: "Вы уверены, что хотите удалить #{country.name}?" } %>
+      <%= link_to edit_country_path(country) do %>
+        <i class='bxr bx-edit'></i>
+      <% end %>
+      &nbsp
+      <%= link_to "/countries/#{country.id}/confirm_destroy" do %>
+        <i class="bxr bx-trash"></i>
+      <% end %>
     </td>
   </tr>
 <% end %>

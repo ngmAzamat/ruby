@@ -1,0 +1,27 @@
+<%= render 'shared/nav' %>
+
+
+<main>
+<%= form_with(model: @figure, method: :delete, local: true) do |form| %>
+<h1>Удалить личность</h1>
+  <%= form.label :first_name, "Имя" %>
+  <%= form.text_field :first_name, readonly: true %>
+
+  <%= form.label :last_name, "Фамилия" %>
+  <%= form.text_field :last_name, readonly: true %>
+
+  <%= form.label :number, "Цифра" %>
+  <%= form.text_field :number, readonly: true %>
+
+  <%= form.label :birth_year, "Год рождения" %>
+  <%= form.number_field :birth_year, readonly: true %>
+
+  <%= form.label :death_year, "Год смерти" %>
+  <%= form.number_field :death_year, readonly: true %>
+
+  <%= form.label :occupation, "Род деятельности" %>
+  <%= form.text_field :occupation, readonly: true %>
+
+  <%= form.submit "Удалить", data: { confirm: 'Вы уверены?' }, class: "button-red" %>
+<% end %>
+</main>

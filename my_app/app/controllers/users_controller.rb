@@ -19,10 +19,13 @@ class UsersController < ApplicationController
   end
 
 
-
   def new
     @user = User.new
-    @figures = Figure.all
+  end
+
+
+  def confirm_destroy
+    @user = User.find(params[:id])
   end
 
   def destroy
@@ -33,7 +36,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @figures = Figure.all # иначе рендер new выдаст ошибку
 
     if @user.save
       redirect_to root_path, notice: "Пользователь создан"

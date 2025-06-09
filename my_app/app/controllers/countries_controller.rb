@@ -31,6 +31,10 @@ class CountriesController < ApplicationController
     end
   end
 
+  def confirm_destroy
+    @country = Country.find(params[:id])
+  end
+
   def destroy
     @country = Country.find(params[:id])
     @country.destroy
