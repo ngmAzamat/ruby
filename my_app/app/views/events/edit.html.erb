@@ -1,1 +1,34 @@
 <%= render 'shared/nav' %>
+
+
+<main>
+<%= form_with(model: @event, local: true) do |form| %>
+<h1>Редактировать событие</h1>
+  <p>
+  <%= form.label :name, "Название" %>
+  <%= form.text_field :name %>
+  </p>
+  <p>
+  <%= form.label :date, "Дата" %>
+  <%= form.date_field :date %>
+  </p>
+  <p>
+  <%= form.label :description, "Описание" %>
+  <%= form.text_field :description %>
+  </p>
+
+  <p>
+  <%= form.label :image, "Изоброжение" %>
+  <%= form.file_field :image %>
+  </p>
+
+  <p>
+  <%= form.label :place, "Место" %>
+  <%= form.number_field :place %>
+  </p>
+  
+  <p>
+    <%= form.submit "Сохранить изменения" %>
+  </p>
+<% end %>
+</main>

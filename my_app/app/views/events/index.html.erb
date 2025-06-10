@@ -1,1 +1,38 @@
 <%= render 'shared/nav' %>
+
+<div class="main-div">
+<h1>События</h1>
+
+<%= link_to "Добавить новое событие", new_war_path %>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Дата</th>
+<th>Описание</th>
+<th>Изоброжение</th>
+<th>Место</th>
+<th>Действия</th>
+</tr>
+</thead>
+<tbody>
+<% @events.each do |war| %>
+  <tr>
+    <td><strong><%= event.name %></strong></td>
+    <td><strong><%= event.date %></strong></td>
+    <td><strong><%= event.description %></strong></td>
+    <td><strong><%= event.image %></strong></td>
+    <td><strong><%= event.place %></strong></td>
+    <td>
+    <%= link_to edit_event_path(event) do %>
+      <i class='bxr bx-edit'></i>
+    <% end %>
+    &nbsp
+    <%= link_to "/events/#{event.id}/confirm_destroy" do %>
+      <i class='bxr bx-trash'></i> 
+    <% end %>
+    </td>
+  </tr>
+<% end %>
+</tbody>
+</table>
