@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :countries, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :wars, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :events, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :profiles, only: [:index, :show, :edit, :update]
   delete "/logout", to: "sessions#destroy"
   get "/logout_via_get", to: "sessions#destroy" # <- временный костыль
   get "/about", to: "pages#about" 

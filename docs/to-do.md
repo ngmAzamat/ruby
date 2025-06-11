@@ -18,8 +18,8 @@
 
 ### Events
 
-- male events entity
-- file uploads: files and pictures for events
+- сделанно: male events entity
+- сделанно: file uploads: files and pictures for events
 
 ### Security
 

@@ -2,28 +2,28 @@
 
 <main>
 <%= form_with(model: @event, method: :delete, local: true) do |form| %>
-    <h1>Удалить событие</h1> 
+  <h1>Удалить событие</h1> 
   <p>
   <%= form.label :name, "Название" %>
-  <%= form.text_field :name %>
+  <%= form.text_field :name, readonly: true %>
   </p>
   <p>
   <%= form.label :date, "Дата" %>
-  <%= form.date_field :date %>
+  <%= form.date_field :date, readonly: true %>
   </p>
   <p>
-  <%= form.label :description, "Описание" %>
-  <%= form.text_field :description %>
+    <%= form.label :description, "Описание" %>
+    <%= form.text_field :description, readonly: true %>
   </p>
 
   <p>
-  <%= form.label :image, "Изоброжение" %>
-  <%= form.file_field :image %>
+    <label>Текущее изображение:</label><br>
+    <%= image_tag @event.image, size: "200x200" %>
   </p>
 
   <p>
   <%= form.label :place, "Место" %>
-  <%= form.number_field :place %>
+  <%= form.text_field :place, readonly: true %>
   </p>
     <p>
       <%= form.submit "Удалить", data: { confirm: 'Вы уверены?' }, class: "button-red" %>

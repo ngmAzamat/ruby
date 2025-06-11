@@ -18,13 +18,17 @@
   </p>
 
   <p>
-  <%= form.label :image, "Изоброжение" %>
-  <%= form.file_field :image %>
+    <%= form.label :image, "Изображение" %>
+    <%= form.file_field :image %>
+    <% if @event.image.attached? %>
+      <br>
+      <label>Текущее изображение:</label><br>
+      <%= image_tag @event.image, size: "100x100" %>
+    <% end %>
   </p>
-
   <p>
   <%= form.label :place, "Место" %>
-  <%= form.number_field :place %>
+  <%= form.text_field :place %>
   </p>
   
   <p>
