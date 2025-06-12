@@ -18,6 +18,10 @@
     <%= form.password_field :password %>
   </div>
   <div>
+    <%= form.label :image, "Изображение" %>
+    <%= form.file_field :image %>
+  </div>
+  <div>
     <%= form.submit "Обновить" %>
   </div>
 <% end %>

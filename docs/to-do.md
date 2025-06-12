@@ -34,7 +34,8 @@
 
 ### Profile Page
 
-- view/change name
-- change password
-- upload photo
-- update email,phone,telegram
+- сделанно: view/change name
+- сделанно: change password
+- сделанно: upload photo
+- сделанно: update email
+- update phone,telegram

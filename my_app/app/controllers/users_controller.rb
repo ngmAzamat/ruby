@@ -18,12 +18,6 @@ class UsersController < ApplicationController
     end
   end
 
-
-  def new
-    @user = User.new
-  end
-
-
   def confirm_destroy
     @user = User.find(params[:id])
   end
@@ -47,7 +41,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :password, :email)
+    params.require(:user).permit(:name, :email, :password, :image)
   end
 
   def require_login

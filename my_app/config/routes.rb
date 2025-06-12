@@ -9,13 +9,13 @@ Rails.application.routes.draw do
   get '/countries/:id/confirm_destroy', to: 'countries#confirm_destroy'
   get '/wars/:id/confirm_destroy', to: 'wars#confirm_destroy'
   get '/events/:id/confirm_destroy', to: 'events#confirm_destroy'
-  resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :users, only: [:index, :create, :edit, :update, :destroy]
   resources :figures, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :battles, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :countries, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :wars, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :events, only: [:index, :new, :create, :edit, :update, :destroy]
-  resources :profiles, only: [:index, :show, :edit, :update]
+  resources :profiles, only: [:index, :edit, :update]
   delete "/logout", to: "sessions#destroy"
   get "/logout_via_get", to: "sessions#destroy" # <- временный костыль
   get "/about", to: "pages#about" 

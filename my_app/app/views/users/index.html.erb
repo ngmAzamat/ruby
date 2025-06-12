@@ -7,6 +7,7 @@
 <tr>
 <th>Имя</th>
 <th>Email</th>
+<th>Изображение</th>
 <th>Действия</th>
 <tr>
 </thead>
@@ -15,6 +16,13 @@
 <tr>
   <td><%= user.name %></td>
   <td><%= user.email %></td>
+    <td>
+    <% if user.image.attached? %>
+      <%= image_tag user.image, size: "100x100" %>
+    <% else %>
+      Нет изображения
+    <% end %>
+  </td>
   <td>
     <%= link_to edit_user_path(user) do %>
       <i class='bxr bx-edit'></i>
@@ -24,6 +32,7 @@
       <i class='bxr bx-trash'></i> 
     <% end %>
   </td>
+
 </tr>
 <% end %>
 </tbody>

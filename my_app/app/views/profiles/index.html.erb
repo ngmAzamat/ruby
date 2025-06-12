@@ -1,15 +1,33 @@
 <%= render 'shared/nav' %>
+
 <main>
-<p>
-<%= current_user.name %>
-</p>
-<p>
-<%= current_user.password %>
-</p>
-<br>
-<p>
-<%= current_user.email %>
-</p>
+  <%= form_with model: current_user, local: true do |form| %>
+    <div>
+      <h1>Редактировать пользователя</h1>
+    </div>
+    <div>
+      <%= form.label :name, "Имя" %>
+      <%= form.text_field :name %>
+    </div>
+    <div>
+      <%= form.label :email, "Email" %>
+      <%= form.email_field :email %>
+    </div>
+    <div>
+      <%= form.label :password, "Пароль" %>
+      <%= form.password_field :password %>
+    </div>
+    <div>
+        <%= form.label :image, "Изображение" %>
+        <%= form.file_field :image %>
+        <% if current_user.image.attached? %>
+        <br>
+        <label>Текущее изображение:</label><br>
+        <%= image_tag current_user.image, size: "100x100" %>
+        <% end %>
+    </div>
+    <div>
+      <%= form.submit "Сохранить изменения" %>
+    </div>
+  <% end %>
 </main>
-
-
