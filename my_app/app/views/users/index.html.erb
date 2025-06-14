@@ -7,6 +7,8 @@
 <tr>
 <th>Имя</th>
 <th>Email</th>
+<th>Telegram</th>
+<th>Номер Телефона</th>
 <th>Изображение</th>
 <th>Действия</th>
 <tr>
@@ -16,6 +18,8 @@
 <tr>
   <td><%= user.name %></td>
   <td><%= user.email %></td>
+  <td></td>
+  <td></td>
     <td>
     <% if user.image.attached? %>
       <%= image_tag user.image, size: "100x100" %>

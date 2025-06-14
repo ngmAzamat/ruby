@@ -28,6 +28,18 @@ body {
   min-height: 100vh;
 }
 
+.light {
+  background-color: white;
+  color: black;
+  --border: 1px solid black;
+}
+
+.dark {
+  background-color: #111;
+  color: white;
+  --border: 1px solid white;
+}
+
 div {
   display: flex;
   flex-direction: column;
@@ -46,10 +58,11 @@ div {
 main {
   min-width: 100vw;
   min-height: calc(100vh - 83px);
-  height: calc(100vh - 83px);
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 a {
@@ -63,11 +76,11 @@ a:hover {
 form {
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 15px;
   min-width: 400px;
   border-radius: 10px;
-  border: 1px solid black;
-  padding: 50px;
+  border: var(--border);
+  padding: 40px;
 }
 
 .no-form-a {
@@ -80,8 +93,9 @@ form {
 
 input {
   padding: 10px;
-  border: 1px solid black;
-  color: black;
+  background-color: var(--border);
+  border: var(--border);
+  color: var(--border);
   min-width: 100%;
   width: 100%;
 }
@@ -94,7 +108,7 @@ input[type="submit"] {
   background-color: rgb(0, 4, 230);
   color: white;
   padding: 15px;
-  border: 1px solid black;
+  border: var(--border);
   border-radius: 3px;
   font-size: 1.275em;
 }
@@ -103,18 +117,9 @@ input[type="submit"].button-red {
   background-color: red;
   color: white;
   padding: 15px;
-  border: 1px solid black;
+  border: var(--border);
   border-radius: 3px;
   font-size: 1.275em;
-}
-
-.light {
-  background-color: #eee;
-  color: #222;
-}
-.dark {
-  background-color: #222;
-  color: #eee;
 }
 
 .no-form-b {
@@ -169,5 +174,24 @@ table {
 th,
 td {
   padding: 20px;
-  border: 1px solid black;
+  border: var(--border);
+}
+
+.search-wrapper {
+  position: relative;
+  display: inline-block; /* или flex, если нужно */
+}
+
+.small-input {
+  border: 1px solid white;
+  padding-right: 30px; /* отступ для иконки справа */
+}
+
+.search-wrapper i {
+  position: absolute;
+  right: 10px; /* или сколько нужно */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* чтобы клик не мешал вводу */
+  color: gray; /* цвет иконки */
 }
