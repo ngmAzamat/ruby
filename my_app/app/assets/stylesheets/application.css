@@ -57,7 +57,7 @@ div {
 
 main {
   min-width: 100vw;
-  min-height: calc(100vh - 83px);
+  min-height: calc(100vh - 121px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -166,6 +166,10 @@ nav > *:hover {
   min-width: 0px;
   border: none;
   padding: 0px;
+}
+
+.no-form-search {
+  display: flex;
 }
 
 table {

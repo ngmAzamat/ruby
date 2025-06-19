@@ -1,0 +1,46 @@
+<%= render 'shared/nav' %>
+
+
+<h1>Search results for: <%= params[:q] %></h1>
+
+<h2>Wars</h2>
+<ul>
+  <% @wars.each do |war| %>
+    <li><%= link_to war.name, war_path(war) %></li>
+  <% end %>
+</ul>
+
+<h2>Countries</h2>
+<ul>
+  <% @countries.each do |country| %>
+    <li><%= link_to country.name, country_path(country) %></li>
+  <% end %>
+</ul>
+
+<h2>Figures</h2>
+<ul>
+  <% @figures.each do |figure| %>
+    <li><%= link_to figure.name, figure_path(figure) %></li>
+  <% end %>
+</ul>
+
+<h2>Battles</h2>
+<ul>
+  <% @battles.each do |battle| %>
+    <li><%= link_to battle.name, battle_path(battle) %></li>
+  <% end %>
+</ul>
+
+<h2>Events</h2>
+<ul>
+  <% @events.each do |event| %>
+    <li><%= link_to event.name, event_path(event) %></li>
+  <% end %>
+</ul>
+
+<h2>Users</h2>
+<ul>
+  <% @users.each do |user| %>
+    <li><%= link_to user.email, user_path(user) %></li>
+  <% end %>
+</ul>

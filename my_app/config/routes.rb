@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   root "users#index"
+  get 'search', to: 'search#index'
   post 'set_theme', to: 'themes#set'
   get '/users/:id/confirm_destroy', to: 'users#confirm_destroy'
   get '/figures/:id/confirm_destroy', to: 'figures#confirm_destroy'
