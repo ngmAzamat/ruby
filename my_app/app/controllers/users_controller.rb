@@ -29,10 +29,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params.except(:image)) # важно: без image
 
     if @user.save
-      redirect_to root_path, notice: "Пользователь создан"
+      @user.image.attach(user_params[:image]) if user_params[:image].present?
+      session[:user_id] = @user.id
+      redirect_to root_path, notice: "Регистрация успешна!"
     else
       render :new, status: :unprocessable_entity
     end
@@ -41,7 +43,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :image)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :image)
   end
 
   def require_login

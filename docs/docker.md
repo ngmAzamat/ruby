@@ -265,17 +265,13 @@ touch app/views/search/index.html.erb:
 
 touch docker-compose.yml:
 
-```ruby
+```yml
 version: "3.8"
 
 services:
   web:
     build: .
-    command: >
-      bash -c "
-        bundle exec rails db:create db:migrate &&
-        bundle exec rails s -b 0.0.0.0 -p 3000
-      "
+    command: bundle exec rails s -b 0.0.0.0 -p 3000
     ports:
       - "3000:3000"
     depends_on:
@@ -286,8 +282,9 @@ services:
       MEILISEARCH_API_KEY: "SUPERSECRET"
     volumes:
       - .:/app:delegated
+      - ./db:/app/db # <-- монтируем локальную папку db внутрь контейнера
       - bundle_cache:/usr/local/bundle
-      - db_data:/app/storage  # <-- для SQLite хранилища!
+      - db_data:/app/db # ✅ БАЗА ВСЕГДА В db/ !!!
       - /app/tmp
       - /app/node_modules
 
@@ -300,8 +297,32 @@ services:
 
 volumes:
   bundle_cache:
-  db_data:  # <-- том для базы данных!
+  db_data: # ✅ Том теперь под db/
 ```
+
+config/database.yml:
+
+```yml
+default: &default
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/development.sqlite3
+
+test:
+  <<: *default
+  database: db/test.sqlite3
+
+production:
+  <<: *default
+  database: db/production.sqlite3
+```
+
+sudo docker compose down -v
+sudo docker compose up --build
 
 в терминале:
 
