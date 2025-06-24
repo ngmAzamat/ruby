@@ -1,0 +1,13 @@
+<%= render 'shared/nav' %>
+
+<main>
+  <div class="main-div">
+    <h1>Note Details</h1>
+
+    <p><strong>Title:</strong> <%= @note.title %></p>
+    <p><strong>Content:</strong> <%= @note.content %></p>
+
+    <%= link_to "<i class='bx bx-edit'></i>".html_safe, edit_note_path(@note) %> |
+    <%= link_to 'Back', notes_path %>
+  </div>
+</main>

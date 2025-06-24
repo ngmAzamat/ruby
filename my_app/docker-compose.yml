@@ -3,18 +3,19 @@ version: "3.8"
 services:
   web:
     build: .
-    command: bundle exec rails s -b 0.0.0.0 -p 3000
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 3000"
     ports:
       - "3000:3000"
     depends_on:
-      - meilisearch
+      meilisearch:
+        condition: service_healthy
     environment:
       RAILS_ENV: development
       MEILISEARCH_URL: "http://meilisearch:7700"
-      MEILISEARCH_API_KEY: "SUPERSECRET"
+      MEILISEARCH_API_KEY: "aUqdDnTZ5sq9uVqLZLC6bGVcbOYI0bHbkR4zytR1zR8"
     volumes:
       - .:/app:delegated
-      - ./db:/app/db # <-- монтируем локальную папку db внутрь контейнера
+      - ./db:/app/db
       - bundle_cache:/usr/local/bundle
       - /app/tmp
       - /app/node_modules
@@ -24,7 +25,12 @@ services:
     ports:
       - "7700:7700"
     environment:
-      MEILI_MASTER_KEY: "SUPERSECRET"
+      MEILI_MASTER_KEY: "aUqdDnTZ5sq9uVqLZLC6bGVcbOYI0bHbkR4zytR1zR8"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7700/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
 
 volumes:
   bundle_cache:

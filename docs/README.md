@@ -13,7 +13,7 @@ yarn -v
 
 bundle config set --global path ~/.bundle
 gem install rails -v 7.1.5.1
-rails _7.1.5.1_ new my_app --skip-bundle
+rails _8.0.2_ new my_app --skip-bundle
 cd my_app
 
 ### Глава III: Installing and Configure

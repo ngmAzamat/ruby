@@ -1,0 +1,20 @@
+<%= render 'shared/nav' %>
+
+<main>
+<%= form_with model: @user, url: user_path(@user), method: :delete do |form| %>
+  <h1>Удаление пользователя</h1>
+  <p>Вы действительно хотите удалить этого пользователя?</p>
+  <div>
+    <label>Имя</label><br>
+    <%= form.text_field :name, readonly: true %>
+  </div>
+  <div>
+    <label>Email</label><br>
+    <%= form.text_field :email, readonly: true %>
+  </div>
+
+  <%= form.submit "Удалить", class: "button-red" %>
+  <%= link_to "Отмена", user_path(@user) %>
+<% end %>
+</main>
+

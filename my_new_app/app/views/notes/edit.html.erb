@@ -1,0 +1,17 @@
+<%= render 'shared/nav' %>
+
+<main>
+  <div class="main-div">
+    <h1>Edit Note</h1>
+
+    <%= form_with(model: @note, local: true) do |form| %>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+
+      <%= form.label :content %>
+      <%= form.text_area :content %>
+
+      <%= form.submit 'Update Note' %>
+    <% end %>
+  </div>
+</main>

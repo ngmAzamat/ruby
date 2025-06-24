@@ -35,12 +35,15 @@
 <ul>
   <% @events.each do |event| %>
     <li><%= link_to event.name, event_path(event) %></li>
+    <li><%= link_to event.place, event_path(event) %></li>
+    <li><%= link_to event.date, event_path(event) %></li>
   <% end %>
 </ul>
 
 <h2>Users</h2>
 <ul>
   <% @users.each do |user| %>
+    <li><%= link_to user.name, user_path(user) %></li>
     <li><%= link_to user.email, user_path(user) %></li>
   <% end %>
 </ul>

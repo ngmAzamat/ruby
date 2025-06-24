@@ -1,0 +1,13 @@
+<%= render 'shared/nav' %>
+
+<main>
+  <div class="main-div">
+    <h1>User Details</h1>
+
+    <p><strong>Name:</strong> <%= @user.name %></p>
+    <p><strong>Email:</strong> <%= @user.email %></p>
+
+    <%= link_to "<i class='bx bx-edit'></i>".html_safe, edit_user_path(@user) %> |
+    <%= link_to 'Back', users_path %>
+  </div>
+</main>

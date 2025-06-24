@@ -1,0 +1,21 @@
+<%= render 'shared/nav' %>
+
+<main>
+  <%= form_with model: @note, url: note_path(@note), method: :delete do |form| %>
+    <h1>Удаление заметки</h1>
+    <p>Вы действительно хотите удалить эту заметку?</p>
+
+    <div>
+      <label>Заголовок</label><br>
+      <%= form.text_field :title, readonly: true %>
+    </div>
+
+    <div>
+      <label>Содержимое</label><br>
+      <%= form.text_area :content, readonly: true %>
+    </div>
+
+    <%= form.submit "Удалить", class: "button-red" %>
+    <%= link_to "Отмена", note_path(@note) %>
+  <% end %>
+</main>

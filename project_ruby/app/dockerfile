@@ -1,0 +1,8 @@
+FROM ruby:3.4.4
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+# Можно добавить гемы через Gemfile — но нам ничего не нужно кроме stdlib
+CMD ["irb"]

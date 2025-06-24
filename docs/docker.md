@@ -209,8 +209,8 @@ touch config/initializers/meilisearch.rb:
 
 ```ruby
 MeiliSearch::Rails.configuration = {
-  meilisearch_url: ENV.fetch('MEILISEARCH_URL', 'http://127.0.0.1:7700'),
-  meilisearch_api_key: ENV.fetch('MEILISEARCH_API_KEY', 'SUPERSECRET')
+  meilisearch_host: ENV['MEILISEARCH_URL'] || 'http://meilisearch:7700',
+  meilisearch_api_key: ENV['MEILISEARCH_API_KEY']
 }
 ```
 
@@ -266,12 +266,10 @@ touch app/views/search/index.html.erb:
 touch docker-compose.yml:
 
 ```yml
-version: "3.8"
-
 services:
   web:
     build: .
-    command: bundle exec rails s -b 0.0.0.0 -p 3000
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 3000"
     ports:
       - "3000:3000"
     depends_on:
@@ -279,12 +277,11 @@ services:
     environment:
       RAILS_ENV: development
       MEILISEARCH_URL: "http://meilisearch:7700"
-      MEILISEARCH_API_KEY: "SUPERSECRET"
+      MEILISEARCH_API_KEY: "aUqdDnTZ5sq9uVqLZLC6bGVcbOYI0bHbkR4zytR1zR8"
     volumes:
       - .:/app:delegated
       - ./db:/app/db # <-- монтируем локальную папку db внутрь контейнера
       - bundle_cache:/usr/local/bundle
-      - db_data:/app/db # ✅ БАЗА ВСЕГДА В db/ !!!
       - /app/tmp
       - /app/node_modules
 
@@ -293,11 +290,9 @@ services:
     ports:
       - "7700:7700"
     environment:
-      MEILI_MASTER_KEY: "SUPERSECRET"
-
+      MEILI_MASTER_KEY: "aUqdDnTZ5sq9uVqLZLC6bGVcbOYI0bHbkR4zytR1zR8"
 volumes:
   bundle_cache:
-  db_data: # ✅ Том теперь под db/
 ```
 
 config/database.yml:
