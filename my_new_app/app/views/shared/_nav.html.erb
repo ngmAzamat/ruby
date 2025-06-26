@@ -7,4 +7,11 @@
     <input name="q" class="small-input" type="text" placeholder="Search..." value="<%= params[:q] %>">
     <button class="button" type="submit"><i class='bx bx-search'></i></button>
   </form>
+    <% if session[:user_id] %>
+    <a href="<%= user_path(session[:user_id]) %>">Мой профиль</a>
+    <%= button_to "Выйти", session_path, method: :delete, class: "button-b" %>
+  <% else %>
+    <a href="<%= new_user_path %>">Регистрация</a>
+    <a href="<%= new_session_path %>">Вход</a>
+  <% end %>
 </nav>

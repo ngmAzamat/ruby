@@ -751,3 +751,7 @@ dialog::backdrop {
 ```
 
 ps факт: `box-shadow: <offset-x> <offset-y> <blur-radius> <spread-radius> <color>;`
+Gemfile: `gem "bcrypt", "~> 3.1.7"`
+
+bundle install
+rails generate controller Sessions new create destroy
