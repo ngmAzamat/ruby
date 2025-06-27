@@ -26,18 +26,37 @@
       const isCtrlOrCmd = event.ctrlKey || event.metaKey;
 
       if (isCtrlOrCmd && (event.key === '/' || event.key === 'k')) {
-        event.preventDefault();
-        const dialog = document.getElementById('search-dialog');
-        if (dialog && typeof dialog.showModal === 'function') {
-          dialog.showModal();
-          const input = dialog.querySelector('input');
-          if (input) input.focus();
-        }
+          event.preventDefault();
+
+          const dialog = document.getElementById('search-dialog');
+          if (dialog && typeof dialog.showModal === 'function') {
+              dialog.showModal();
+
+              const input = dialog.querySelector('input');
+              if (input) input.focus();
+          }
       }
 
       if (event.key === 'Escape') {
-        const dialog = document.getElementById('search-dialog');
-        if (dialog?.open) dialog.close();
+          const dialog = document.getElementById('search-dialog');
+          if (dialog?.open) dialog.close();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      const dialog = document.getElementById('search-dialog');
+
+      if (dialog) {
+          const rect = dialog.getBoundingClientRect();
+          const isInDialog =
+              event.clientX >= rect.left &&
+              event.clientX <= rect.right &&
+              event.clientY >= rect.top &&
+              event.clientY <= rect.bottom;
+
+          if (!isInDialog) {
+              dialog.close();
+          }
       }
     });
   </script>
