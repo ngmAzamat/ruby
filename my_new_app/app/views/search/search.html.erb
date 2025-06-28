@@ -1,29 +1,28 @@
 <%= render 'shared/nav' %>
 
-<h1>Результаты поиска для: "<%= params[:q].presence || "ничего не введено" %>"</h1>
+<div class="main-div">
+  <h1>Результаты поиска для: "<%= params[:q].presence || "ничего не введено" %>"</h1>
 
-<h2>Users</h2>
-<% if @users.any? %>
-  <% @users.each do |user| %>
-    <div class="search-user-item">
-      <%= user.name %>
-      <%= link_to 'Open', user_path(user), class: "button-blue" %>
-    </div>
+  <h2>Users</h2>
+  <% if @users.any? %>
+    <% @users.each do |user| %>
+      <div class="search-user-item">
+        <%= link_to user.name, user, class: "" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No users found.</p>
   <% end %>
-<% else %>
-  <p>No users found.</p>
-<% end %>
 
 
-<h2>Notes</h2>
-<% if @notes.any? %>
-  <% @notes.each do |note| %>
-    <div class="search-note-item">
-      <span><%= note.title %></span>
-      <%= link_to 'Open', note, class: "button-blue" %>
-    </div>
+  <h2>Notes</h2>
+  <% if @notes.any? %>
+    <% @notes.each do |note| %>
+      <div class="search-note-item">
+        <%= link_to note.title, note, class: "" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No notes found.</p>
   <% end %>
-<% else %>
-  <p>No notes found.</p>
-<% end %>
-
+</div>

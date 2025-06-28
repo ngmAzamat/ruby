@@ -6,7 +6,7 @@
     <a href="<%= new_note_path %>">New Note</a>
     <a href="<%= user_path(session[:user_id]) %>">Мой профиль</a>
   <%= form_with url: session_path, method: :delete, html: { class: 'no-form' } do %>
-    <%= button_tag 'Выйти', class: 'button' %>
+    <%= button_tag 'Выйти', class: 'no-form-b' %>
   <% end %>
   <% else %>
     <a href="<%= new_user_path %>">Регистрация</a>

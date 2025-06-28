@@ -9,17 +9,15 @@
         <tr>
           <th>Title</th>
           <th>Content</th>
-          <th colspan="3">Actions</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <% @notes.each do |note| %>
           <tr>
-            <td><%= note.title %></td>
+            <td><%= link_to note.title, note %></td>
             <td><%= note.content %></td>
-            <td><%= link_to 'Show', note %></td>
-            <td><%= link_to "<i class='bx bx-edit'></i>".html_safe, edit_note_path(note) %></td>
-            <td><%= link_to "<i class='bx bx-trash'></i>".html_safe, delete_note_path(note) %></td>
+            <td><%= link_to "<i class='bx bx-edit'></i>".html_safe, edit_note_path(note) %> <%= link_to "<i class='bx bx-trash'></i>".html_safe, delete_note_path(note) %></td>
           </tr>
         <% end %>
       </tbody>

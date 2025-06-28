@@ -93,7 +93,8 @@ form {
   color: rgb(14, 0, 139);
 }
 
-input {
+input,
+textarea {
   padding: 10px;
   background-color: var(--border);
   border: var(--border);
@@ -159,7 +160,7 @@ nav {
   justify-content: space-around;
   align-items: center;
   margin: 0;
-  padding: 30px;
+  padding: 20px;
   background-color: black;
 }
 nav > * {
@@ -167,7 +168,8 @@ nav > * {
   cursor: default;
 }
 
-nav > a:hover {
+nav > a:hover,
+.no-form-b:hover {
   color: red;
 }
 input.small-input:hover,
@@ -240,7 +242,7 @@ td {
   justify-content: space-between;
   align-items: center;
   border: var(--border);
-  padding: 10px 20px;
+  padding: 20px;
   margin-bottom: 10px;
   border-radius: 5px;
 }
@@ -283,4 +285,11 @@ dialog::backdrop {
 
 .button-modal:hover {
   color: red;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  column-gap: 5px;
 }
